@@ -24,6 +24,8 @@ python -m streamlit run main.py
 1. 파일 업로드 후 보여주기 
 2. 이미지 전처리
 ![image](https://user-images.githubusercontent.com/71626430/207253728-95d05158-1a2a-4ac4-b954-adf93249d31b.png)
+3. gan으로ㅓ 생성한 이미지 보여주기 
+![image](https://user-images.githubusercontent.com/71626430/207265888-71a04805-a5cd-474b-882e-821e12ad32bc.png)
 
 
 ### 구현해야할 기능
