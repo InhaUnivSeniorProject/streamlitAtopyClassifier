@@ -6,13 +6,13 @@ import os
 from PIL import Image
 import cv2
 import keras.applications.xception as kax
+import keras.models as kmodel
 
 IMAGE_SIZE = 64
 
 st.title('WGAN-GP와  Xception 모델 변형을 통한 아토피 중증도 분류 모델 개선');
 st.header('아토피의 중증도를 분류해줍니다. ');
 
-st.text("변형된 Xception 모델의 블록도 입니다.")
 xceptionBlockDiagram = Image.open('image/ourXception.png');
 
 def show_grid_images(images_batch, ncols=4, title=None):
@@ -29,6 +29,7 @@ def openImageAndConverToNumpy(ImagePath):
     return numpyImage;
 
 #이미지 불러오기
+st.text("병변 별 gan으로 생성한 이미지입니다.");
 myScratch11 = openImageAndConverToNumpy("image/gan/myScratch1_2355.jpg");
 myScratch12 = openImageAndConverToNumpy("image/gan/myScratch1_2388.jpg");
 myScratch13 = openImageAndConverToNumpy("image/gan/myScratch1_2394.jpg");
@@ -94,6 +95,8 @@ col9.write("태선화3");
 col9.image(myLi31);
 col9.image(myLi32);
 col9.image(myLi33);
+
+st.text("**변형된 Xception 모델의 블록도 입니다.**")
 st.image(xceptionBlockDiagram);
 
 # 이미지를 업로드 했다면 이미지를 보여준다. 
@@ -108,7 +111,7 @@ if(image_file):
     processedImage = cv2.resize(processedImage, (IMAGE_SIZE, IMAGE_SIZE));
     processedImage = kax.preprocess_input(processedImage);
 
-
+myModel = kmodel.load_model('atopy_classifier.h5')
 
 
 
