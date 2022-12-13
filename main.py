@@ -9,6 +9,7 @@ import keras.applications.xception as kax
 import keras.models as kmodel
 
 IMAGE_SIZE = 64
+myModel = kmodel.load_model('atopy_classifier1.h5');
 
 st.title('WGAN-GP와  Xception 모델 변형을 통한 아토피 중증도 분류 모델 개선');
 st.header('아토피의 중증도를 분류해줍니다. ');
@@ -101,6 +102,10 @@ st.image(xceptionBlockDiagram);
 
 # 이미지를 업로드 했다면 이미지를 보여준다. 
 image_file = st.file_uploader('이미지 업로드', type=['png','jpg','jpeg']);
+
+
+if(myModel):
+    st.text(myModel)
 if(image_file):
     pilImage = Image.open(image_file);
     numpyImage=np.array(pilImage)
@@ -110,8 +115,24 @@ if(image_file):
     processedImage = cv2.cvtColor(numpyImage, cv2.COLOR_BGR2RGB);
     processedImage = cv2.resize(processedImage, (IMAGE_SIZE, IMAGE_SIZE));
     processedImage = kax.preprocess_input(processedImage);
+    processedImage = np.reshape(processedImage, (1,64,64,3))
 
-myModel = kmodel.load_model('atopy_classifier.h5')
+    
+    summary = myModel.summary(); 
+    # 태선화1 2 3 홍진1 2 3 긁은 상처 1 2 3 순서 
+    print(myModel.predict(processedImage))
+    result = myModel.predict(processedImage)[0].argmax()
+
+    def switch(key):
+        myLabel = {"0" : "태선화1", "1" : "태선화2","2" : "태선화3","3":"홍진1","4" : "홍진2", "5" : "홍진3", "6" : "긁은상처1", "7" : "긁은상처2","8": "긁은상처3"}.get(key)
+        st.header("병변 및 중증도");
+        st.header(myLabel)
+
+    switch(str(result));
+
+    
+
+
 
 
 
