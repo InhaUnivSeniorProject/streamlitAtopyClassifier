@@ -1,5 +1,4 @@
 import streamlit as st
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import os
@@ -15,14 +14,6 @@ st.title('WGAN-GP와  Xception 모델 변형을 통한 아토피 중증도 분�
 st.header('아토피의 중증도를 분류해줍니다. ');
 
 xceptionBlockDiagram = Image.open('image/ourXception.png');
-
-def show_grid_images(images_batch, ncols=4, title=None):
-    figure, axs = plt.subplots(figsize=(22, 4), nrows=1, ncols=ncols)
-    for i in range(ncols):
-        # image_batch는 float형이므로 int형으로 변경하여 이미지 시각화
-        axs[i].imshow(np.array(images_batch[i], dtype='int32'))
-        axs[i].axis('off')
-        axs[i].set_title(title[i]) 
 
 def openImageAndConverToNumpy(ImagePath):
     pilImage = Image.open(ImagePath);                                
