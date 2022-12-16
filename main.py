@@ -107,8 +107,6 @@ if(image_file):
     processedImage = kax.preprocess_input(processedImage);
     processedImage = np.reshape(processedImage, (1,64,64,3))
 
-    
-    summary = myModel.summary(); 
     # 태선화1 2 3 홍진1 2 3 긁은 상처 1 2 3 순서 
     print(myModel.predict(processedImage))
     result = myModel.predict(processedImage)[0].argmax()
@@ -119,6 +117,32 @@ if(image_file):
         st.header(myLabel)
 
     switch(str(result));
+
+myPicture =st.camera_input("Take a picture about your skin ");
+
+if(myPicture):
+    myPilImage = Image.open(image_file);
+    myNumpyImage = np.array(myPilImage)
+    st.image(myPilImage);
+
+    #
+    myProcessedImage = cv2.cvtColor(myNumpyImage , cv2.COLOR_BGR2GRAY);
+    myProcessedImage = cv2.resize(myProcessedImage, (IMAGE_SIZE, IMAGE_SIZE));
+    myProcessedImage = kax.preprocess_input(myProcessedImage);
+    myProcessedImage = np.reshape(myProcessedImage, (1, 64,64,3));
+
+    print(myModel.predict(myProcessedImage))
+
+    result = myModel.predict(myProcessedImage[0].argmax())
+
+    def mySwitch(key):
+        myLabel = {"0" : "태선화1", "1" : "태선화2","2" : "태선화3","3":"홍진1","4" : "홍진2", "5" : "홍진3", "6" : "긁은상처1", "7" : "긁은상처2","8": "긁은상처3"}.get(key)
+        st.header("병변 및 중증도");
+        st.header(myLabel)
+
+    mySwitch(str(result));
+
+
 
     
 
