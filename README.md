@@ -26,9 +26,7 @@ python -m streamlit run main.py
 ![image](https://user-images.githubusercontent.com/71626430/207253728-95d05158-1a2a-4ac4-b954-adf93249d31b.png)
 3. gan으로ㅓ 생성한 이미지 보여주기 
 ![image](https://user-images.githubusercontent.com/71626430/207265888-71a04805-a5cd-474b-882e-821e12ad32bc.png)
+4. 파일 업로드하면 아토피 중증도 분류해주기
 
-
-### 구현해야할 기능
-1. 모델 업로드 
-2. GAN으로 생성한 이미지 matplotlib으로 보여주기
-3. 모델에 전처리된 이미지를 통과시킨 후 결과 출력 
+## 배포된 주소 
+https://inhaatopyclassifier.streamlit.app/
