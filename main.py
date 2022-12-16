@@ -7,7 +7,7 @@ import keras.applications.xception as kax
 import keras.models as kmodel
 
 IMAGE_SIZE = 64
-@st.cache
+
 def load_my_model():
     return kmodel.load_model('atopy_classifier1.h5');
 
@@ -92,7 +92,10 @@ col9.image(myLi32);
 col9.image(myLi33);
 
 st.text("**변형된 Xception 모델의 블록도 입니다.**")
-st.image(xceptionBlockDiagram);
+@st.cache
+def showModel():
+    return st.image(xceptionBlockDiagram);
+showModel();
 
 # 이미지를 업로드 했다면 이미지를 보여준다. 
 image_file = st.file_uploader('이미지 업로드', type=['png','jpg','jpeg']);
