@@ -7,13 +7,17 @@ import keras.applications.xception as kax
 import keras.models as kmodel
 
 IMAGE_SIZE = 64
-myModel = kmodel.load_model('atopy_classifier1.h5');
+@st.cache
+def load_my_model():
+    return kmodel.load_model('atopy_classifier1.h5');
+
+myModel = load_my_model();
 
 st.title('WGAN-GP와  Xception 모델 변형을 통한 아토피 중증도 분류 모델 개선');
 st.header('아토피의 중증도를 분류해줍니다. ');
 
 xceptionBlockDiagram = Image.open('image/ourXception.png');
-
+@st.cache
 def openImageAndConverToNumpy(ImagePath):
     pilImage = Image.open(ImagePath);                                
     numpyImage = np.array(pilImage);
@@ -93,9 +97,6 @@ st.image(xceptionBlockDiagram);
 # 이미지를 업로드 했다면 이미지를 보여준다. 
 image_file = st.file_uploader('이미지 업로드', type=['png','jpg','jpeg']);
 
-
-if(myModel):
-    st.text(myModel)
 if(image_file):
     pilImage = Image.open(image_file);
     numpyImage=np.array(pilImage)
