@@ -92,7 +92,6 @@ col9.image(myLi32);
 col9.image(myLi33);
 
 st.text("**변형된 Xception 모델의 블록도 입니다.**")
-@st.cache
 def showModel():
     return st.image(xceptionBlockDiagram);
 showModel();
@@ -125,12 +124,10 @@ if(image_file):
 myPicture =st.camera_input("Take a picture about your skin ");
 
 if(myPicture):
-    myPilImage = Image.open(image_file);
-    myNumpyImage = np.array(myPilImage)
-    st.image(myPilImage);
-
-    #
-    myProcessedImage = cv2.cvtColor(myNumpyImage , cv2.COLOR_BGR2GRAY);
+    myPictureData = myPicture.getvalue();
+    cv2_img = cv2.imdecode(np.frombuffer(myPictureData, np.uint8), cv2.IMREAD_COLOR); 
+    st.image(cv2_img);
+    myProcessedImage = cv2.cvtColor(cv2_img , cv2.COLOR_BGR2GRAY);
     myProcessedImage = cv2.resize(myProcessedImage, (IMAGE_SIZE, IMAGE_SIZE));
     myProcessedImage = kax.preprocess_input(myProcessedImage);
     myProcessedImage = np.reshape(myProcessedImage, (1, 64,64,3));
